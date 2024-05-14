@@ -1,6 +1,6 @@
 function kakaoMap(){
-  var mapcontainer = document.getElementById('map');
-var mapoptions = {
+  var mapContainer = document.getElementById('map');
+var mapOptions = {
   center: new kakao.maps.LatLng(37.5846465, 126.9251874),
   level: 3
 };
