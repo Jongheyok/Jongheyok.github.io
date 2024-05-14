@@ -9,8 +9,9 @@ var marker = new kakao.maps.Marker({
   position: markerPosition
 });
 var map = new kakao.maps.Map(container, options);
-};
 marker.setMap(map);
+};
+
 $(function(){
   kakaoMap();
 })
