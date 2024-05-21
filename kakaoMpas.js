@@ -5,7 +5,7 @@ var mapOptions = {
   level: 3
 };
 var markerPosition  = new kakao.maps.LatLng(37.5846465, 126.9251874); 
-var map = new kakao.maps.Map(mapContainer, mapOption);
+var map = new kakao.maps.Map(mapContainer, mapOptions);
 var marker = new kakao.maps.Marker({
   position: markerPosition
 });
