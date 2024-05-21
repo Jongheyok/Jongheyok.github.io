@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html lang="ko">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -12,9 +11,7 @@
             margin: 0;
             padding: 0;
             background: #f5f5dc;
-            /* 베이지색 배경 */
             color: #000000;
-            /* 검정색 글꼴색 */
             display: flex;
             flex-direction: column;
             justify-content: center;
@@ -28,19 +25,14 @@
             position: relative;
             display: flex;
             justify-content: center;
-            /* flex 아이템들을 가운데로 정렬 */
             align-items: center;
-            /* 아이템들을 세로 방향에서도 가운데로 정렬 */
             width: 100%;
         }
 
         header h1 {
             font-family: 'Brush Script MT', cursive;
-            /* 로고에 적절한 폰트 설정 */
             font-size: 4em;
-            /* 글씨 크기를 키움 */
             color: #82644a;
-            /* 웜톤 회색 글꼴색 */
         }
 
         #homeButton {
@@ -52,96 +44,68 @@
             background-color: transparent;
             text-decoration: none;
             color: #82644a;
-            /* 웜톤 회색 글꼴색 */
             font-size: 1em;
             border-radius: 5px;
-            /* 버튼의 모서리를 둥글게 */
         }
 
         #notification {
             display: flex;
             align-items: center;
             gap: 10px;
-            /*각 버튼/이미지 사이의 간격 */
             position: absolute;
             right: 20px;
             top: 10px;
             font-size: 0.9em;
             color: #82644a;
-            /* 웜톤 회색 글꼴색 */
         }
 
         #notification img {
             width: 50px;
-            /* 이미지 크기 조정 가능 */
             vertical-align: middle;
         }
 
         #noticeBoard,
         #map {
             margin: 20px auto;
-            /*위 아래로 20px의 마진을 두고 좌우 마진은 자동으로 설정 */
             padding: 20px;
             border: 1px solid #ddd;
             background: #fff;
             box-shadow: 3px 3px 5px rgba(0, 0, 0, 0.2);
             width: 90%;
-            /* 두 컨테이너의 너비를 동일하게 설정 */
         }
 
         #map {
-            /* position: relative; */
-            /*컨테이너 상대 위치 지정*/
             overflow: hidden;
-            /*내부 요소가 넘치면 숨김 처리 */
-            /* 지도의 폭을 더 크게 설정하려면, 여기서 width와 margin을 조정하세요 */
             height: 600px;
-            /* 지도의 높이 설정 */
             width: 90%;
-            /* 지도 영역 너비 설정 */
             margin-left: -5px;
             margin-right: -5px;
-        }
-
-        #map img {
-            max-width: 100%;
-            max-height: 90%;
-            display: block;
-            /* 이미지를 블록 요소로 설정하여 새 줄에서 시작 */
         }
 
         h2,
         p,
         li {
             color: #000000;
-            /* 나머지 텍스트에 검정색 적용 */
         }
-
-        /* 추가적인 스타일링 필요 시 여기에 작성 */
     </style>
+    <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=1448921153ab71b1544863fdc75735f9"></script>
 </head>
-
 <body>
     <header>
         <a id="homeButton" href="index.html">HOME</a>
         <h1>Cooking Buddy</h1>
         <div id="notification">
-            <!-- 레시피 검색 버튼-->
             <button id="searchRecipesButton" style="background: none; border: none; padding: 0; cursor: pointer;">
                 <img src="png/search.png" alt="레시피 검색 버튼" />
-
             </button>
             <button id="chatNotificationButton" style="background: none; border: none; padding: 0; cursor: pointer;">
                 <img src="png/speech_bubble.png" alt="채팅 알림 이미지" />
-                <!-- 알림표시를 추가합니다. -->
                 <span id="notificationBadge"
                     style="display: none; position: absolute; top: 0; right: 0; background-color: red; width: 20px; height: 20px; border-radius: 50%; color: white; text-align: center; line-height: 20px;">!</span>
             </button>
-            <!-- 로그인 및 회원가입 버튼 -->
             <button id="loginButton">log in</button>|
             <button id="registerButton">sign up</button>
         </div>
-        <!-- 검색창 팝업, 처음에는 숨겨져 있어야 함 -->
         <div id="searchPopup"
             style="display: none; position: fixed; top: 20%; left: 30%; background: white; padding: 20px; border-radius: 10px; box-shadow: 0 4px 6px rgba(0,0,0,0.1); width: 40%;">
             <input type="text" id="recipeSearchInput" placeholder="레시피 검색..." style="width: 70%; padding: 10px;">
@@ -153,7 +117,7 @@
     <script>
         document.getElementById('searchRecipesButton').addEventListener('click', function () {
             var searchPopup = document.getElementById('searchPopup');
-            searchPopup.style.display = 'block'; // 검색창 보이기
+            searchPopup.style.display = 'block';
         });
 
         function handlePopupClose() {
@@ -163,87 +127,53 @@
 
         function searchRecipes() {
             var input = document.getElementById('recipeSearchInput').value;
-            // 검색 로직을 구현하거나 검색 페이지로 리다이렉트
-            console.log("검색어: " + input); // 실제로는 여기에 검색 결과 페이지로 이동하거나 결과를 표시하는 로직이 필요
+            console.log("검색어: " + input);
         }
-    </script>
 
-    <script>
         document.getElementById('chatNotificationButton').addEventListener('click', function () {
-            window.location.href = 'chat.html'; // 채팅 페이지로 이동
+            window.location.href = 'chat.html';
         });
     </script>
 
-
-    <!-- Notice Board Section -->
     <div id="noticeBoard">
         <div style="display: flex; justify-content: space-between; align-items: center;">
             <h2>Notice Board</h2>
             <button id="addPostButton" style="padding: 0.5em; margin: 10px; font-size: 1em; cursor: pointer;">+</button>
         </div>
-
-        <!-- 게시판 내용 -->
         <ul>
             <li>홍은동 하나로 마트에서 계란 반반 더치페이하실분 구해요</li>
             <li>대패 삼겹살 1kg 더치페이하실 분 구해여!</li>
-            <!-- 나머지 내용 -->
         </ul>
     </div>
 
     <script>
         document.getElementById('addPostButton').addEventListener('click', function () {
-            window.location.href = 'board.html'; // 'board.html'을 게시판 등록 페이지로 설정
+            window.location.href = 'board.html';
         });
     </script>
 
     <div id="map">
         <h2>Map</h2>
-        <img src="png/map.png" alt="Map" id="mapImage" />
     </div>
 
-    <script>
-        // 지도 이미지에 클릭 이벤트 리스너를 추가합니다.
-        document.getElementById('mapImage').addEventListener('click', function () {
-            // 여기에 Map API를 불러오는 코드를 추가하세요.
-            // 예시로 Google Maps를 불러오는 코드를 넣었습니다.
-            // 실제 API 키와 옵션은 해당 서비스에 맞게 변경해야 합니다.
-            var mapContainer = document.getElementById('map');
-            mapContainer.innerHTML = '<div id="googleMap" style="width:100%;height:4000px;"></div>';
+    <!--카카오 맵을 로드하는 스크립트 추가-->
+    <script src="kakaomap.js"></script>
 
-            // Google Maps 스크립트 로드
-            var script = document.createElement('script');
-            script.src = `https://maps.googleapis.com/maps/api/js?key=YOUR_API_KEY&callback=initMap`;
-            script.async = true;
-            script.defer = true;
-            document.body.appendChild(script);
-
-            // Google Maps 초기화 함수
-            window.initMap = function () {
-                var mapOptions = {
-                    center: new google.maps.LatLng(37.5665, 126.9780), // 지도의 중심을 설정합니다 (예시로 서울 시청 좌표 사용).
-                    zoom: 8
-                };
-                var googleMap = new google.maps.Map(document.getElementById('googleMap'), mapOptions);
-            };
-        });
-    </script>
-
-    <!--로그인, 회원가입 -->
     <script>
         // 로그인 버튼 클릭 시 이벤트 처리
         document.getElementById('loginButton').addEventListener('click', function () {
-            window.location.href = 'login.html'; // 로그인 페이지로 이동
+            window.location.href = 'login.html';
         });
 
-        // 회원가입 버튼 클릭 시 이벤트 처리
         document.getElementById('registerButton').addEventListener('click', function () {
-            window.location.href = 'register.html'; // 회원가입 페이지로 이동
+            window.location.href = 'register.html';
         });
     </script>
 
     <script>
-        // 자바스크립트 코드로 동적인 기능 추가
-        // 예: 실시간 공지사항 로딩, 지도 업데이트, 채팅 알림 확인 등
+        window.onload = function () {
+            kakaoMap();
+        }
     </script>
 </body>
 </html>
