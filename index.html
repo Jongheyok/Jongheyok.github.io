@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="ko">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -90,6 +91,7 @@
     </style>
     <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=1448921153ab71b1544863fdc75735f9"></script>
 </head>
+
 <body>
     <header>
         <a id="homeButton" href="index.html">HOME</a>
@@ -156,11 +158,27 @@
         <h2>Map</h2>
     </div>
 
-    <!--카카오 맵을 로드하는 스크립트 추가-->
-    <script src="kakaomap.js"></script>
+    <script>
+        function kakaoMap() {
+            var mapContainer = document.getElementById('map');
+            var mapOptions = {
+                center: new kakao.maps.LatLng(37.5846465, 126.9251874),
+                level: 3
+            };
+            var markerPosition = new kakao.maps.LatLng(37.5846465, 126.9251874);
+            var map = new kakao.maps.Map(mapContainer, mapOptions);
+            var marker = new kakao.maps.Marker({
+                position: markerPosition
+            });
+            marker.setMap(map);
+        }
+
+        window.onload = function () {
+            kakaoMap();
+        }
+    </script>
 
     <script>
-        // 로그인 버튼 클릭 시 이벤트 처리
         document.getElementById('loginButton').addEventListener('click', function () {
             window.location.href = 'login.html';
         });
@@ -169,11 +187,6 @@
             window.location.href = 'register.html';
         });
     </script>
-
-    <script>
-        window.onload = function () {
-            kakaoMap();
-        }
-    </script>
 </body>
+
 </html>
