@@ -1,0 +1,74 @@
+/* AddNoticeBoard.css */
+.add-notice-board {
+    width: 100%;
+    margin: 0 auto;
+    padding: 20px;
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    background-color: #f9f9f9;
+  }
+  
+  .add-notice-board form {
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .add-notice-board input[type="text"],
+  .add-notice-board textarea,
+  .add-notice-board input[type="file"],
+  .add-notice-board select {
+    margin: 10px 0;
+    padding: 10px;
+    font-size: 1em;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+  }
+  
+  .add-notice-board textarea {
+    height: 200px;
+    resize: none;
+  }
+  
+  .add-notice-board .editor-toolbar {
+    display: flex;
+    flex-wrap: wrap;
+    margin-bottom: 10px;
+  }
+  
+  .add-notice-board .editor-toolbar button {
+    margin: 2px;
+    padding: 5px;
+    background-color: #fff;
+    border: 1px solid #ccc;
+    border-radius: 3px;
+    cursor: pointer;
+  }
+  
+  .add-notice-board .editor-toolbar button:hover {
+    background-color: #e6e6e6;
+  }
+  
+  .add-notice-board .submit-buttons {
+    display: flex;
+    justify-content: space-between;
+  }
+  
+  .add-notice-board .submit-buttons button {
+    margin-top: 20px;
+    padding: 10px 20px;
+    font-size: 1em;
+    cursor: pointer;
+    border: none;
+    border-radius: 5px;
+  }
+  
+  .add-notice-board .submit-buttons .publish {
+    background-color: #4CAF50;
+    color: white;
+  }
+  
+  .add-notice-board .submit-buttons .save-draft {
+    background-color: #f0ad4e;
+    color: white;
+  }
+  

@@ -1,0 +1,7 @@
+.DS_Store
+/node_modules/
+/build/
+/src/seupTest.js/
+/src/reportWebVitals.js/
+/public/logo192.png/
+/package-lock.json/
