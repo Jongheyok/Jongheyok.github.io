@@ -89,7 +89,8 @@
             color: #000000;
         }
     </style>
-    <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=1448921153ab71b1544863fdc75735f9"></script>
+    <script type="text/javascript"
+        src="//dapi.kakao.com/v2/maps/sdk.js?appkey=1448921153ab71b1544863fdc75735f9&libraries=services"></script>
 </head>
 
 <body>
@@ -157,20 +158,39 @@
     <div id="map">
         <h2>Map</h2>
     </div>
+    
+    <div style="margin: 20px;">
+        <input type="text" id="addressInput" placeholder="주소를 입력하세요" style="width: 70%; padding: 10px;">
+        <button onclick="searchAddress()">주소 검색</button>
+    </div>
 
     <script>
+        var map;
+
         function kakaoMap() {
             var mapContainer = document.getElementById('map');
             var mapOptions = {
                 center: new kakao.maps.LatLng(37.5846465, 126.9251874),
                 level: 3
             };
-            var markerPosition = new kakao.maps.LatLng(37.5846465, 126.9251874);
-            var map = new kakao.maps.Map(mapContainer, mapOptions);
-            var marker = new kakao.maps.Marker({
-                position: markerPosition
+            map = new kakao.maps.Map(mapContainer, mapOptions);
+        }
+
+        function searchAddress() {
+            var geocoder = new kakao.maps.services.Geocoder();
+            var address = document.getElementById('addressInput').value;
+            geocoder.addressSearch(address, function (result, status) {
+                if (status === kakao.maps.services.Status.OK) {
+                    var coords = new kakao.maps.LatLng(result[0].y, result[0].x);
+                    var marker = new kakao.maps.Marker({
+                        map: map,
+                        position: coords
+                    });
+                    map.setCenter(coords);
+                } else {
+                    alert('주소를 찾을 수 없습니다.');
+                }
             });
-            marker.setMap(map);
         }
 
         window.onload = function () {
