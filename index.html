@@ -88,9 +88,45 @@
         li {
             color: #000000;
         }
+
+        #chatPopup {
+            display: none;
+            position: fixed;
+            bottom: 0;
+            right: 20px;
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            width: 300px;
+            height: 400px;
+            overflow-y: scroll;
+            flex-direction: column;
+        }
+
+        #chatMessages {
+            flex: 1;
+            overflow-y: auto;
+            margin-bottom: 10px;
+        }
+
+        #chatInput {
+            display: flex;
+            gap: 5px;
+        }
+
+        #chatInput input {
+            flex: 1;
+            padding: 10px;
+        }
+
+        #chatInput button {
+            padding: 10px;
+        }
     </style>
     <script type="text/javascript"
         src="//dapi.kakao.com/v2/maps/sdk.js?appkey=1448921153ab71b1544863fdc75735f9&libraries=services"></script>
+    <script src="https://cdn.pubnub.com/sdk/javascript/pubnub.4.34.0.min.js"></script>
 </head>
 
 <body>
@@ -164,8 +200,17 @@
         <button onclick="searchAddress()">주소 검색</button>
     </div>
 
+    <div id="chatPopup">
+        <div id="chatMessages"></div>
+        <div id="chatInput">
+            <input type="text" id="chatMessageInput" placeholder="메시지를 입력하세요">
+            <button onclick="sendMessage()">전송</button>
+        </div>
+    </div>
+
     <script>
         var map;
+        var pubnub;
 
         function kakaoMap() {
             var mapContainer = document.getElementById('map');
@@ -187,18 +232,49 @@
                         position: coords
                     });
                     map.setCenter(coords);
+                    kakao.maps.event.addListener(marker, 'click', function () {
+                        document.getElementById('chatPopup').style.display = 'flex';
+                    });
                 } else {
                     alert('주소를 찾을 수 없습니다.');
                 }
             });
         }
 
+        function initPubNub() {
+            pubnub = new PubNub({
+                publishKey: 'pub-c-bdb424df-2018-40f7-9210-aef922a8f51b',
+                subscribeKey: 'sub-c-f83c5aa7-e1cc-4d63-93a7-886266265d50',
+                uuid: 'user_' + Date.now()
+            });
+
+            pubnub.addListener({
+                message: function (event) {
+                    var messageElement = document.createElement('div');
+                    messageElement.textContent = event.message.text;
+                    document.getElementById('chatMessages').appendChild(messageElement);
+                }
+            });
+
+            pubnub.subscribe({
+                channels: ['cooking_buddy_channel']
+            });
+        }
+
+        function sendMessage() {
+            var message = document.getElementById('chatMessageInput').value;
+            pubnub.publish({
+                channel: 'cooking_buddy_channel',
+                message: { text: message }
+            });
+            document.getElementById('chatMessageInput').value = '';
+        }
+
         window.onload = function () {
             kakaoMap();
+            initPubNub();
         }
-    </script>
 
-    <script>
         document.getElementById('loginButton').addEventListener('click', function () {
             window.location.href = 'login.html';
         });
