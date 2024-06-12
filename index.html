@@ -65,67 +65,95 @@
             vertical-align: middle;
         }
 
-        #noticeBoard {
-            margin: 20px auto;
-            padding: 20px;
-            background: #fff;
-            box-shadow: 3px 3px 5px rgba(0, 0, 0, 0.2);
-            width: 90%;
-            border-radius: 10px;
-        }
-
-        #noticeBoard .notice-board-header {
+        .notice-board-container {
             display: flex;
-            justify-content: space-between;
-            align-items: center;
-            background-color: #fff4e6;
-            padding: 10px;
-            border-radius: 10px;
-        }
-
-        #noticeBoard .notice-board-header h2 {
-            margin: 0;
-            font-size: 1.5em;
-        }
-
-        #noticeBoard .notice-board-header #addPostButton {
-            padding: 0.5em 1em;
-            font-size: 1.5em;
-            cursor: pointer;
-            background-color: #82644a;
-            color: white;
-            border: none;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
+            padding-top: 20px;
+            width: 100%;
             justify-content: center;
         }
 
-        #noticeBoard .notice-item {
-            background-color: #fffbf2;
-            border: 1px solid #ddd;
-            padding: 10px;
-            margin-top: 10px;
+        .notice-board {
+            width: 100%;
+            max-width: 1500px;
+            background: #fff;
+            padding: 20px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
             border-radius: 10px;
-            box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.1);
         }
 
-        #noticeBoard .notice-item h4 {
-            margin: 0;
+        .notice-board-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .notice-board h2 {
+            margin-bottom: 20px;
+        }
+
+        #addPostButton {
+            display: inline-block;
+            font-size: 1.2em;
+            cursor: pointer;
+            background: #82644a;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+        }
+
+        ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        li {
+            margin-bottom: 10px;
+            background: #f9f9f9;
+            padding: 10px;
+            border-radius: 5px;
+        }
+
+        li a {
+            text-decoration: none;
             color: #82644a;
             font-size: 1.2em;
+            display: block;
+            margin-bottom: 5px;
         }
 
-        #noticeBoard .notice-item p {
+        li a:hover {
+            text-decoration: underline;
+        }
+
+        li p {
             margin: 0;
-            color: #82644a;
+            font-size: 1em;
+            color: #333;
         }
 
-        #noticeBoard .notice-item .user-id {
-            text-align: right;
-            font-style: italic;
-            font-size: 0.9em;
-            color: #82644a;
+        .comments {
+            margin-top: 20px;
+        }
+
+        .comments h3 {
+            margin-bottom: 10px;
+        }
+
+        .comments textarea {
+            width: 100%;
+            height: 100px;
+            margin-bottom: 10px;
+            padding: 10px;
+        }
+
+        .comments button {
+            padding: 10px 20px;
+            background: #82644a;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
         }
 
         #map {
@@ -155,7 +183,7 @@
             height: 400px;
             overflow-y: scroll;
             flex-direction: column;
-            z-index: 1000; /* 맵 위에 오도록 */
+            z-index: 1000;
         }
 
         #chatMessages {
@@ -238,17 +266,20 @@
         });
     </script>
 
-    <div id="noticeBoard">
-        <div class="notice-board-header">
-            <h2>Notice Board</h2>
-            <button id="addPostButton">+</button>
-        </div>
-        <div class="notice-item">
-            <a href="/post/1">
-                <h4>깐양파 4개 재료 공구할 사람 구해요!!</h4>
-                <p>희망하시는 분 1시까지 명지대 이마트 에브리데이 앞에서 뵐게요!!</p>
-            </a>
-            <p class="user-id">mjc</p>
+    <div class="notice-board-container">
+        <div class="notice-board">
+            <div class="notice-board-header">
+                <h2>Notice Board</h2>
+                <button id="addPostButton">+</button>
+            </div>
+            <ul>
+                <li>
+                    <a href="/post/1">
+                        <h4>깐양파 4개 재료 공구할 사람 구해요!!</h4>
+                        <p>희망하시는 분 1시까지 명지대 이마트 에브리데이 앞에서 뵐게요!!</p>
+                    </a>
+                </li>
+            </ul>
         </div>
     </div>
 
