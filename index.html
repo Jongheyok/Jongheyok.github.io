@@ -68,18 +68,16 @@
         .notice-board-container {
             display: flex;
             padding-top: 20px;
-            width: 100%;
-            justify-content: center;
         }
 
         .notice-board {
-            width: 100%;
-            max-width: 1500px;
-            background: #fff; /* 공지사항 배경색 */
-            padding: 20px;
-            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-            border-radius: 10px;
-        }
+  width: 100%;
+  max-width: 1500px;
+  background: #fff;
+  padding: 20px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  border-radius: 10px;
+}
 
         .notice-board-header {
             display: flex;
@@ -92,15 +90,15 @@
         }
 
         #addPostButton {
-            display: inline-block;
-            font-size: 1.2em;
-            cursor: pointer;
-            background: #82644a;
-            color: white;
-            border: none;
-            padding: 10px 20px;
-            border-radius: 5px;
-        }
+  display: inline-block;
+  font-size: 1.2em;
+  cursor: pointer;
+  background: #82644a;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 5px;
+}
 
         ul {
             list-style: none;
@@ -156,13 +154,18 @@
             cursor: pointer;
         }
 
-        #map {
-            overflow: hidden;
-            height: 600px;
-            width: 90%;
-            margin-left: -5px;
-            margin-right: -5px;
-        }
+        .map-container {
+  width: 100%;
+  height: 500px; /* 적절한 높이로 설정 */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+#map {
+  width: 100%;
+  height: 100%;
+}
 
         h2, p, li {
             color: #000000;
