@@ -65,14 +65,67 @@
             vertical-align: middle;
         }
 
-        #noticeBoard,
-        #map {
+        #noticeBoard {
             margin: 20px auto;
             padding: 20px;
-            border: 1px solid #ddd;
             background: #fff;
             box-shadow: 3px 3px 5px rgba(0, 0, 0, 0.2);
             width: 90%;
+            border-radius: 10px;
+        }
+
+        #noticeBoard .notice-board-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background-color: #fff4e6;
+            padding: 10px;
+            border-radius: 10px;
+        }
+
+        #noticeBoard .notice-board-header h2 {
+            margin: 0;
+            font-size: 1.5em;
+        }
+
+        #noticeBoard .notice-board-header #addPostButton {
+            padding: 0.5em 1em;
+            font-size: 1.5em;
+            cursor: pointer;
+            background-color: #82644a;
+            color: white;
+            border: none;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        #noticeBoard .notice-item {
+            background-color: #fffbf2;
+            border: 1px solid #ddd;
+            padding: 10px;
+            margin-top: 10px;
+            border-radius: 10px;
+            box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.1);
+        }
+
+        #noticeBoard .notice-item h4 {
+            margin: 0;
+            color: #82644a;
+            font-size: 1.2em;
+        }
+
+        #noticeBoard .notice-item p {
+            margin: 0;
+            color: #82644a;
+        }
+
+        #noticeBoard .notice-item .user-id {
+            text-align: right;
+            font-style: italic;
+            font-size: 0.9em;
+            color: #82644a;
         }
 
         #map {
@@ -186,14 +239,17 @@
     </script>
 
     <div id="noticeBoard">
-        <div style="display: flex; justify-content: space-between; align-items: center;">
+        <div class="notice-board-header">
             <h2>Notice Board</h2>
-            <button id="addPostButton" style="padding: 0.5em; margin: 10px; font-size: 1em; cursor: pointer;">+</button>
+            <button id="addPostButton">+</button>
         </div>
-        <ul>
-            <li>홍은동 하나로 마트에서 계란 반반 더치페이하실분 구해요</li>
-            <li>대패 삼겹살 1kg 더치페이하실 분 구해여!</li>
-        </ul>
+        <div class="notice-item">
+            <a href="/post/1">
+                <h4>깐양파 4개 재료 공구할 사람 구해요!!</h4>
+                <p>희망하시는 분 1시까지 명지대 이마트 에브리데이 앞에서 뵐게요!!</p>
+            </a>
+            <p class="user-id">mjc</p>
+        </div>
     </div>
 
     <script>
