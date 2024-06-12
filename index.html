@@ -11,8 +11,8 @@
             font-family: 'Arial', sans-serif;
             margin: 0;
             padding: 0;
-            background: #f5f5dc;
-            color: #000000;
+            background: #f5f5dc; /* 배경색 변경 */
+            color: #000000; /* 기본 글자색 설정 */
             display: flex;
             flex-direction: column;
             justify-content: center;
@@ -20,7 +20,7 @@
         }
 
         header {
-            background: transparent;
+            background: transparent; /* 배경 투명 */
             padding: 10px 20px;
             text-align: center;
             position: relative;
@@ -33,7 +33,7 @@
         header h1 {
             font-family: 'Brush Script MT', cursive;
             font-size: 4em;
-            color: #82644a;
+            color: #82644a; /* 로고 색상 */
         }
 
         #homeButton {
@@ -61,7 +61,7 @@
         }
 
         #notification img {
-            width: 50px;
+            width: 50px; /* 아이콘 크기 */
             vertical-align: middle;
         }
 
@@ -75,7 +75,7 @@
         .notice-board {
             width: 100%;
             max-width: 1500px;
-            background: #fff;
+            background: #fff; /* 공지사항 배경색 */
             padding: 20px;
             box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
             border-radius: 10px;
@@ -109,14 +109,14 @@
 
         li {
             margin-bottom: 10px;
-            background: #f9f9f9;
+            background: #f9f9f9; /* 항목 배경색 */
             padding: 10px;
             border-radius: 5px;
         }
 
         li a {
             text-decoration: none;
-            color: #82644a;
+            color: #82644a; /* 링크 색상 */
             font-size: 1.2em;
             display: block;
             margin-bottom: 5px;
@@ -129,31 +129,7 @@
         li p {
             margin: 0;
             font-size: 1em;
-            color: #333;
-        }
-
-        .comments {
-            margin-top: 20px;
-        }
-
-        .comments h3 {
-            margin-bottom: 10px;
-        }
-
-        .comments textarea {
-            width: 100%;
-            height: 100px;
-            margin-bottom: 10px;
-            padding: 10px;
-        }
-
-        .comments button {
-            padding: 10px 20px;
-            background: #82644a;
-            color: white;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
+            color: #333; /* 텍스트 색상 */
         }
 
         #map {
@@ -170,6 +146,7 @@
             color: #000000;
         }
 
+        /* 채팅 팝업 스타일 */
         #chatPopup {
             display: none;
             position: fixed;
@@ -244,6 +221,39 @@
             <button onclick="handlePopupClose()">x</button>
         </div>
     </header>
+    <div class="notice-board-container">
+        <div class="notice-board">
+            <div class="notice-board-header">
+                <h2>Notice Board</h2>
+                <button id="addPostButton">+</button>
+            </div>
+            <ul>
+                <li>
+                    <a href="/post/1">
+                        <h4>깐양파 4개 재료 공구할 사람 구해요!!</h4></a>
+                        <a href="/post/1">  <p>희망하시는 분 1시까지 명지대 이마트 에브리데이 앞에서 뵐게요!!</p></a>
+                </li>
+            </ul>
+        </div>
+    </div>
+
+    <div id="map">
+        <h2>Map</h2>
+    </div>
+    
+    <div style="margin: 20px;">
+        <input type="text" id="addressInput" placeholder="주소를 입력하세요" style="width: 70%; padding: 10px;">
+        <button onclick="searchAddress()">주소 검색</button>
+    </div>
+
+    <div id="chatPopup">
+        <button id="closeChatButton" onclick="handleChatClose()">x</button>
+        <div id="chatMessages"></div>
+        <div id="chatInput">
+            <input type="text" id="chatMessageInput" placeholder="메시지를 입력하세요">
+            <button onclick="sendMessage()">전송</button>
+        </div>
+    </div>
 
     <script>
         document.getElementById('searchRecipesButton').addEventListener('click', function () {
@@ -265,47 +275,7 @@
             window.location.href = 'chat.html';
         });
     </script>
-
-    <div class="notice-board-container">
-        <div class="notice-board">
-            <div class="notice-board-header">
-                <h2>Notice Board</h2>
-                <button id="addPostButton">+</button>
-            </div>
-            <ul>
-                <li>
-                    <a href="/post/1">
-                        <h4>깐양파 4개 재료 공구할 사람 구해요!!</h4></a>
-                        <a href="/post/1">  <p>희망하시는 분 1시까지 명지대 이마트 에브리데이 앞에서 뵐게요!!</p></a>
-                </li>
-            </ul>
-        </div>
-    </div>
-
-    <script>
-        document.getElementById('addPostButton').addEventListener('click', function () {
-            window.location.href = 'board.html';
-        });
-    </script>
-
-    <div id="map">
-        <h2>Map</h2>
-    </div>
     
-    <div style="margin: 20px;">
-        <input type="text" id="addressInput" placeholder="주소를 입력하세요" style="width: 70%; padding: 10px;">
-        <button onclick="searchAddress()">주소 검색</button>
-    </div>
-
-    <div id="chatPopup">
-        <button id="closeChatButton" onclick="handleChatClose()">x</button>
-        <div id="chatMessages"></div>
-        <div id="chatInput">
-            <input type="text" id="chatMessageInput" placeholder="메시지를 입력하세요">
-            <button onclick="sendMessage()">전송</button>
-        </div>
-    </div>
-
     <script>
         var map;
         var pubnub;
