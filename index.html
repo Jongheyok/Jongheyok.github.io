@@ -1,304 +1,110 @@
 <!DOCTYPE html>
-<html lang="ko">
-
+<html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Cooking Buddy</title>
-    <style>
-        body {
-            box-sizing: border-box;
-            font-family: 'Arial', sans-serif;
-            margin: 0;
-            padding: 0;
-            background: #f5f5dc;
-            color: #000000;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-        }
-
-        header {
-            background: transparent;
-            padding: 10px 20px;
-            text-align: center;
-            position: relative;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            width: 100%;
-        }
-
-        header h1 {
-            font-family: 'Brush Script MT', cursive;
-            font-size: 4em;
-            color: #82644a;
-        }
-
-        #homeButton {
-            position: absolute;
-            left: 20px;
-            top: 10px;
-            padding: 5px 10px;
-            border: none;
-            background-color: transparent;
-            text-decoration: none;
-            color: #82644a;
-            font-size: 1em;
-            border-radius: 5px;
-        }
-
-        #notification {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            position: absolute;
-            right: 20px;
-            top: 10px;
-            font-size: 0.9em;
-            color: #82644a;
-        }
-
-        #notification img {
-            width: 50px;
-            vertical-align: middle;
-        }
-
-        #noticeBoard,
-        #map {
-            margin: 20px auto;
-            padding: 20px;
-            border: 1px solid #ddd;
-            background: #fff;
-            box-shadow: 3px 3px 5px rgba(0, 0, 0, 0.2);
-            width: 90%;
-        }
-
-        #map {
-            overflow: hidden;
-            height: 600px;
-            width: 90%;
-            margin-left: -5px;
-            margin-right: -5px;
-        }
-
-        h2,
-        p,
-        li {
-            color: #000000;
-        }
-
-        #chatPopup {
-            display: none;
-            position: fixed;
-            bottom: 0;
-            right: 20px;
-            background: white;
-            padding: 20px;
-            border-radius: 10px;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-            width: 300px;
-            height: 400px;
-            overflow-y: scroll;
-            flex-direction: column;
-            z-index: 1000; /* 맵 위에 오도록 */
-        }
-
-        #chatMessages {
-            flex: 1;
-            overflow-y: auto;
-            margin-bottom: 10px;
-        }
-
-        #chatInput {
-            display: flex;
-            gap: 5px;
-        }
-
-        #chatInput input {
-            flex: 1;
-            padding: 10px;
-        }
-
-        #chatInput button {
-            padding: 10px;
-        }
-
-        #closeChatButton {
-            position: absolute;
-            top: 10px;
-            right: 10px;
-            background: none;
-            border: none;
-            font-size: 1.2em;
-            cursor: pointer;
-        }
-    </style>
-    <script type="text/javascript"
-        src="//dapi.kakao.com/v2/maps/sdk.js?appkey=1448921153ab71b1544863fdc75735f9&libraries=services"></script>
-    <script src="https://cdn.pubnub.com/sdk/javascript/pubnub.4.34.0.min.js"></script>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Cooking Buddy</title>
+  <link rel="stylesheet" href="components/App.css">
 </head>
-
 <body>
+  <div class="App">
     <header>
-        <a id="homeButton" href="index.html">HOME</a>
+      <div class="header-content">
+        <a id="homeButton" href="/main">HOME</a>
+        <a id="mjc-text" href="/MyInfo" class="mjc-text">mjc</a>
         <h1>Cooking Buddy</h1>
         <div id="notification">
-            <button id="searchRecipesButton" style="background: none; border: none; padding: 0; cursor: pointer;">
-                <img src="png/search.png" alt="레시피 검색 버튼" />
-            </button>
-            <button id="chatNotificationButton" style="background: none; border: none; padding: 0; cursor: pointer;">
-                <img src="png/speech_bubble.png" alt="채팅 알림 이미지" />
-                <span id="notificationBadge"
-                    style="display: none; position: absolute; top: 0; right: 0; background-color: red; width: 20px; height: 20px; border-radius: 50%; color: white; text-align: center; line-height: 20px;">!</span>
-            </button>
-            <button id="loginButton">log in</button>|
-            <button id="registerButton">sign up</button>
+          <button id="searchRecipesButton" style="background: none; border: none; cursor: pointer;">
+            <img src="png/search.png" alt="Search">
+          </button>
+          <button id="chatNotificationButton" style="background: none; border: none; cursor: pointer; padding: 10px;">
+            <img src="png/speech_bubble.png" alt="Chat">
+            <span id="notificationBadge" style="display: block; position: absolute; top: -5px; right: -5px; background-color: red; width: 20px; height: 20px; border-radius: 50%; color: white; text-align: center; line-height: 20px;">!</span>
+          </button>
+          <button class="logout-button">Logout</button>
         </div>
-        <div id="searchPopup"
-            style="display: none; position: fixed; top: 20%; left: 30%; background: white; padding: 20px; border-radius: 10px; box-shadow: 0 4px 6px rgba(0,0,0,0.1); width: 40%;">
-            <input type="text" id="recipeSearchInput" placeholder="레시피 검색..." style="width: 70%; padding: 10px;">
-            <button onclick="searchRecipes()">검색</button>
-            <button onclick="handlePopupClose()">x</button>
-        </div>
+      </div>
+      <div id="searchPopup" style="display: none; position: fixed; top: 20%; left: 30%; background: white; padding: 20px; border-radius: 10px; box-shadow: 0 4px 6px rgba(0,0,0,0.1); width: 40%;">
+        <form>
+          <input type="text" name="recipeSearchInput" placeholder="Search recipes..." style="width: 70%; padding: 10px;">
+          <button type="submit">Search</button>
+          <button type="button">x</button>
+        </form>
+      </div>
     </header>
 
-    <script>
-        document.getElementById('searchRecipesButton').addEventListener('click', function () {
-            var searchPopup = document.getElementById('searchPopup');
-            searchPopup.style.display = 'block';
-        });
-
-        function handlePopupClose() {
-            var searchPopup = document.getElementById('searchPopup');
-            searchPopup.style.display = 'none';
-        }
-
-        function searchRecipes() {
-            var input = document.getElementById('recipeSearchInput').value;
-            console.log("검색어: " + input);
-        }
-
-        document.getElementById('chatNotificationButton').addEventListener('click', function () {
-            window.location.href = 'chat.html';
-        });
-    </script>
-
-    <div id="noticeBoard">
-        <div style="display: flex; justify-content: space-between; align-items: center;">
+    <main class="main-content">
+      <div class="notice-board-container">
+        <div class="notice-board">
+          <div class="notice-board-header">
             <h2>Notice Board</h2>
-            <button id="addPostButton" style="padding: 0.5em; margin: 10px; font-size: 1em; cursor: pointer;">+</button>
+            <a id="addPostButton" href="/add-notice">+</a>
+          </div>
+          <div class="notice-item">
+            <a href="/post/1">
+              <h4>깐양파 4개 재료 공구할 사람 구해요!!</h4>
+              <p>희망하시는 분 1시까지 명지대 이마트 에브리데이 앞에서 뵐게요!!</p>
+            </a>
+            <p class="user-id">mjc</p>
+          </div>
         </div>
-        <ul>
-            <li>홍은동 하나로 마트에서 계란 반반 더치페이하실분 구해요</li>
-            <li>대패 삼겹살 1kg 더치페이하실 분 구해여!</li>
-        </ul>
-    </div>
+      </div>
+      <h2>Map</h2>
+      <div class="map-container">
+        <!-- Map 컴포넌트의 내용은 여기에 삽입 -->
+        <!-- 예: <iframe src="https://www.google.com/maps/embed?..." width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy"></iframe> -->
+      </div>
+    </main>
 
-    <script>
-        document.getElementById('addPostButton').addEventListener('click', function () {
-            window.location.href = 'board.html';
-        });
-    </script>
+    <section class="auth-section">
+      <h2>Login</h2>
+      <form class="login-form">
+        <label for="username">Username:</label>
+        <input type="text" id="username" name="username">
+        <label for="password">Password:</label>
+        <input type="password" id="password" name="password">
+        <button type="submit">Login</button>
+      </form>
 
-    <div id="map">
-        <h2>Map</h2>
-    </div>
-    
-    <div style="margin: 20px;">
-        <input type="text" id="addressInput" placeholder="주소를 입력하세요" style="width: 70%; padding: 10px;">
-        <button onclick="searchAddress()">주소 검색</button>
-    </div>
+      <h2>Register</h2>
+      <form class="register-form">
+        <label for="reg-username">Username:</label>
+        <input type="text" id="reg-username" name="username">
+        <label for="reg-password">Password:</label>
+        <input type="password" id="reg-password" name="password">
+        <label for="email">Email:</label>
+        <input type="email" id="email" name="email">
+        <button type="submit">Register</button>
+      </form>
+    </section>
 
-    <div id="chatPopup">
-        <button id="closeChatButton" onclick="handleChatClose()">x</button>
-        <div id="chatMessages"></div>
-        <div id="chatInput">
-            <input type="text" id="chatMessageInput" placeholder="메시지를 입력하세요">
-            <button onclick="sendMessage()">전송</button>
-        </div>
-    </div>
+    <section class="post-detail">
+      <h2>Post Detail</h2>
+      <article>
+        <h3>Post Title</h3>
+        <p>Post content goes here...</p>
+      </article>
+    </section>
 
-    <script>
-        var map;
-        var pubnub;
+    <section class="my-info">
+      <h2>My Information</h2>
+      <div class="user-info">
+        <p>Username: mjc</p>
+        <p>Email: example@example.com</p>
+        <!-- Additional user info here -->
+      </div>
+    </section>
 
-        function kakaoMap() {
-            var mapContainer = document.getElementById('map');
-            var mapOptions = {
-                center: new kakao.maps.LatLng(37.5846465, 126.9251874),
-                level: 3
-            };
-            map = new kakao.maps.Map(mapContainer, mapOptions);
-        }
-
-        function searchAddress() {
-            var geocoder = new kakao.maps.services.Geocoder();
-            var address = document.getElementById('addressInput').value;
-            geocoder.addressSearch(address, function (result, status) {
-                if (status === kakao.maps.services.Status.OK) {
-                    var coords = new kakao.maps.LatLng(result[0].y, result[0].x);
-                    var marker = new kakao.maps.Marker({
-                        map: map,
-                        position: coords
-                    });
-                    map.setCenter(coords);
-                    kakao.maps.event.addListener(marker, 'click', function () {
-                        document.getElementById('chatPopup').style.display = 'flex';
-                    });
-                } else {
-                    alert('주소를 찾을 수 없습니다.');
-                }
-            });
-        }
-
-        function initPubNub() {
-            pubnub = new PubNub({
-                publishKey: 'pub-c-bdb424df-2018-40f7-9210-aef922a8f51b',
-                subscribeKey: 'sub-c-f83c5aa7-e1cc-4d63-93a7-886266265d50',
-                uuid: 'user_' + Date.now()
-            });
-
-            pubnub.addListener({
-                message: function (event) {
-                    var messageElement = document.createElement('div');
-                    messageElement.textContent = event.message.text;
-                    document.getElementById('chatMessages').appendChild(messageElement);
-                }
-            });
-
-            pubnub.subscribe({
-                channels: ['cooking_buddy_channel']
-            });
-        }
-
-        function sendMessage() {
-            var message = document.getElementById('chatMessageInput').value;
-            pubnub.publish({
-                channel: 'cooking_buddy_channel',
-                message: { text: message }
-            });
-            document.getElementById('chatMessageInput').value = '';
-        }
-
-        function handleChatClose() {
-            document.getElementById('chatPopup').style.display = 'none';
-        }
-
-        window.onload = function () {
-            kakaoMap();
-            initPubNub();
-        }
-
-        document.getElementById('loginButton').addEventListener('click', function () {
-            window.location.href = 'login.html';
-        });
-
-        document.getElementById('registerButton').addEventListener('click', function () {
-            window.location.href = 'register.html';
-        });
-    </script>
+    <section class="add-notice">
+      <h2>Add Notice</h2>
+      <form class="add-notice-form">
+        <label for="title">Title:</label>
+        <input type="text" id="title" name="title">
+        <label for="content">Content:</label>
+        <textarea id="content" name="content"></textarea>
+        <button type="submit">Add Notice</button>
+      </form>
+    </section>
+  </div>
 </body>
-
 </html>
