@@ -132,6 +132,30 @@
             color: #333; /* 텍스트 색상 */
         }
 
+        .comments {
+            margin-top: 20px;
+        }
+
+        .comments h3 {
+            margin-bottom: 10px;
+        }
+
+        .comments textarea {
+            width: 100%;
+            height: 100px;
+            margin-bottom: 10px;
+            padding: 10px;
+        }
+
+        .comments button {
+            padding: 10px 20px;
+            background: #82644a;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
         #map {
             overflow: hidden;
             height: 600px;
@@ -140,57 +164,8 @@
             margin-right: -5px;
         }
 
-        h2,
-        p,
-        li {
+        h2, p, li {
             color: #000000;
-        }
-
-        /* 채팅 팝업 스타일 */
-        #chatPopup {
-            display: none;
-            position: fixed;
-            bottom: 0;
-            right: 20px;
-            background: white;
-            padding: 20px;
-            border-radius: 10px;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-            width: 300px;
-            height: 400px;
-            overflow-y: scroll;
-            flex-direction: column;
-            z-index: 1000;
-        }
-
-        #chatMessages {
-            flex: 1;
-            overflow-y: auto;
-            margin-bottom: 10px;
-        }
-
-        #chatInput {
-            display: flex;
-            gap: 5px;
-        }
-
-        #chatInput input {
-            flex: 1;
-            padding: 10px;
-        }
-
-        #chatInput button {
-            padding: 10px;
-        }
-
-        #closeChatButton {
-            position: absolute;
-            top: 10px;
-            right: 10px;
-            background: none;
-            border: none;
-            font-size: 1.2em;
-            cursor: pointer;
         }
     </style>
     <script type="text/javascript"
@@ -205,11 +180,6 @@
         <div id="notification">
             <button id="searchRecipesButton" style="background: none; border: none; padding: 0; cursor: pointer;">
                 <img src="png/search.png" alt="레시피 검색 버튼" />
-            </button>
-            <button id="chatNotificationButton" style="background: none; border: none; padding: 0; cursor: pointer;">
-                <img src="png/speech_bubble.png" alt="채팅 알림 이미지" />
-                <span id="notificationBadge"
-                    style="display: none; position: absolute; top: 0; right: 0; background-color: red; width: 20px; height: 20px; border-radius: 50%; color: white; text-align: center; line-height: 20px;">!</span>
             </button>
             <button id="loginButton">log in</button>|
             <button id="registerButton">sign up</button>
@@ -241,19 +211,6 @@
         <h2>Map</h2>
     </div>
     
-    <div style="margin: 20px;">
-        <input type="text" id="addressInput" placeholder="주소를 입력하세요" style="width: 70%; padding: 10px;">
-        <button onclick="searchAddress()">주소 검색</button>
-    </div>
-
-    <div id="chatPopup">
-        <button id="closeChatButton" onclick="handleChatClose()">x</button>
-        <div id="chatMessages"></div>
-        <div id="chatInput">
-            <input type="text" id="chatMessageInput" placeholder="메시지를 입력하세요">
-            <button onclick="sendMessage()">전송</button>
-        </div>
-    </div>
 
     <script>
         document.getElementById('searchRecipesButton').addEventListener('click', function () {
@@ -271,14 +228,11 @@
             console.log("검색어: " + input);
         }
 
-        document.getElementById('chatNotificationButton').addEventListener('click', function () {
-            window.location.href = 'chat.html';
-        });
+
     </script>
     
     <script>
         var map;
-        var pubnub;
 
         function kakaoMap() {
             var mapContainer = document.getElementById('map');
@@ -289,62 +243,8 @@
             map = new kakao.maps.Map(mapContainer, mapOptions);
         }
 
-        function searchAddress() {
-            var geocoder = new kakao.maps.services.Geocoder();
-            var address = document.getElementById('addressInput').value;
-            geocoder.addressSearch(address, function (result, status) {
-                if (status === kakao.maps.services.Status.OK) {
-                    var coords = new kakao.maps.LatLng(result[0].y, result[0].x);
-                    var marker = new kakao.maps.Marker({
-                        map: map,
-                        position: coords
-                    });
-                    map.setCenter(coords);
-                    kakao.maps.event.addListener(marker, 'click', function () {
-                        document.getElementById('chatPopup').style.display = 'flex';
-                    });
-                } else {
-                    alert('주소를 찾을 수 없습니다.');
-                }
-            });
-        }
-
-        function initPubNub() {
-            pubnub = new PubNub({
-                publishKey: 'pub-c-bdb424df-2018-40f7-9210-aef922a8f51b',
-                subscribeKey: 'sub-c-f83c5aa7-e1cc-4d63-93a7-886266265d50',
-                uuid: 'user_' + Date.now()
-            });
-
-            pubnub.addListener({
-                message: function (event) {
-                    var messageElement = document.createElement('div');
-                    messageElement.textContent = event.message.text;
-                    document.getElementById('chatMessages').appendChild(messageElement);
-                }
-            });
-
-            pubnub.subscribe({
-                channels: ['cooking_buddy_channel']
-            });
-        }
-
-        function sendMessage() {
-            var message = document.getElementById('chatMessageInput').value;
-            pubnub.publish({
-                channel: 'cooking_buddy_channel',
-                message: { text: message }
-            });
-            document.getElementById('chatMessageInput').value = '';
-        }
-
-        function handleChatClose() {
-            document.getElementById('chatPopup').style.display = 'none';
-        }
-
         window.onload = function () {
             kakaoMap();
-            initPubNub();
         }
 
         document.getElementById('loginButton').addEventListener('click', function () {
