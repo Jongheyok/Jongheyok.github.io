@@ -1,0 +1,9 @@
+.map {
+  flex: 1;
+  margin: 20px auto;
+  padding: 20px;
+  border: 1px solid #ddd;
+  background: #fff;
+  box-shadow: 3px 3px 5px rgba(0, 0, 0, 0.2);
+  width: 100%;
+}
